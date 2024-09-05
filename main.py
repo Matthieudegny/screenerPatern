@@ -120,3 +120,8 @@ def detect_structure(candle, backcandles, window):
         if resistance_condition and (df.loc[candle].close-mean_high)>zone_width*2:
             levelbreak = 2
     return levelbreak
+
+#df['pattern_detected'] = df.index.map(lambda x: detect_structure(x, backcandles=40, window=15))
+df['pattern_detected'] = df.apply(lambda row: detect_structure(row.name, backcandles=60, window=11), axis=1)
+
+df[df['pattern_detected']!=0]
